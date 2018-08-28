@@ -36,7 +36,7 @@
                 <DisplayName>Check Mobile Phone Number Web Hook Azure Function</DisplayName>
                 <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
                 <Metadata>
-                    <Item Key="ServiceUrl">https://max-aadb2c-function.azurewebsites.net/api/HttpTrigger-CSharp?code=kwl8vs2V4SVJO5qfxcG/7IhOyRfQFKMryIcwipZLF85xQ87IfQe9Ug==</Item>
+                    <Item Key="ServiceUrl">https://max-aadb2c-function.azurewebsites.net/api/HttpTrigger-CSharp?code=</Item>
                     <Item Key="AuthenticationType">None</Item>
                     <Item Key="SendClaimsIn">Body</Item>
                 </Metadata>
