@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TrustFrameworkPolicy
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+  PolicySchemaVersion="0.3.0.0"
+  TenantId="maxtenant.onmicrosoft.com"
+  PolicyId="B2C_1A_signup_signin_WC_MFA"
+  PublicPolicyUri="http://maxtenant.onmicrosoft.com/B2C_1A_signup_signin_WC_MFA">
+
+  <BasePolicy>
+    <TenantId>maxtenant.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkExtensions_WC_MFA</PolicyId>
+  </BasePolicy>
+
+  <BuildingBlocks>
+    <ContentDefinitions>
+      <ContentDefinition Id="api.selfasserted">
+        <LoadUri>https://jciworkshop.blob.core.windows.net/cui/selfasserted-ui.html</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:selfasserted:1.1.0</DataUri>
+      </ContentDefinition>
+
+      <ContentDefinition Id="api.phonefactor">
+        <LoadUri>https://jciworkshop.blob.core.windows.net/cui/phonefactor-ui.html</LoadUri>
+        <DataUri>urn:com:microsoft:aad:b2c:elements:multifactor:1.1.0</DataUri>
+      </ContentDefinition>
+    </ContentDefinitions>
+  </BuildingBlocks>
+
+  <RelyingParty>
+    <DefaultUserJourney ReferenceId="SignUpOrSignIn" />
+    <TechnicalProfile Id="PolicyProfile">
+      <DisplayName>PolicyProfile</DisplayName>
+      <Protocol Name="OpenIdConnect" />
+      <OutputClaims>
+        <OutputClaim ClaimTypeReferenceId="displayName" />
+        <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"/>
+        <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="oid"/>
+        <OutputClaim ClaimTypeReferenceId="identityProvider" />
+        <OutputClaim ClaimTypeReferenceId="userPrincipalName" />
+        <OutputClaim ClaimTypeReferenceId="socialIdpUserId" />
+        <OutputClaim ClaimTypeReferenceId="mobile" />
+
+        <!-- Provide the custom claim identifier -->
+        <OutputClaim ClaimTypeReferenceId="extension_wuid" />
+        <OutputClaim ClaimTypeReferenceId="extension_woid" />
+        <OutputClaim ClaimTypeReferenceId="extension_waid" />
+        <!-- End of changes -->
+      </OutputClaims>
+      <SubjectNamingInfo ClaimType="sub" />
+    </TechnicalProfile>
+  </RelyingParty>
+</TrustFrameworkPolicy>
