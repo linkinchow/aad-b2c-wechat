@@ -17,7 +17,7 @@ public static async Task<object> Run(HttpRequestMessage request, TraceWriter log
 
     string mobileno = (string) requestContentAsJObject.mobileno;
 
-    string connString = "DefaultEndpointsProtocol=https;AccountName=jciworkshop;AccountKey=sA2Wo/zs/p0GW2R1v2U0wVvczJ8aQU2MsAqXZ7TFSOs9qEXzIdXZh1f+HibLiCJzBwNilwa9a6FiifzvqeoV4w==;EndpointSuffix=core.windows.net";
+    string connString = "DefaultEndpointsProtocol=https;AccountName=jciworkshop;AccountKey=;EndpointSuffix=core.windows.net";
     string containerName = "mobile";
     string fileName = "mobile.txt";
 
