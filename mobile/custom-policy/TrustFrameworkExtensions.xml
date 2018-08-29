@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TrustFrameworkPolicy 
+  xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  PolicySchemaVersion="0.3.0.0" 
+  TenantId="maxtenant.onmicrosoft.com" 
+  PolicyId="B2C_1A_TrustFrameworkExtensions_WC_MFA_Mobile" 
+  PublicPolicyUri="http://maxtenant.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions_WC_MFA_Mobile">
+  
+  <BasePolicy>
+    <TenantId>maxtenant.onmicrosoft.com</TenantId>
+    <PolicyId>B2C_1A_TrustFrameworkBase_WC_MFA_Mobile</PolicyId>
+  </BasePolicy>
+  <BuildingBlocks>
+
+  </BuildingBlocks>
+
+  <ClaimsProviders>
+
+    <ClaimsProvider>
+        <DisplayName>REST APIs</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="AzureFunctions-CheckMobileWebHook">
+                <DisplayName>Check Mobile Phone Number Web Hook Azure Function</DisplayName>
+                <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <Item Key="ServiceUrl">https://max-aadb2c-function.azurewebsites.net/api/HttpTrigger-CSharp?code=kwl8vs2V4SVJO5qfxcG/7IhOyRfQFKMryIcwipZLF85xQ87IfQe9Ug==</Item>
+                    <Item Key="AuthenticationType">None</Item>
+                    <Item Key="SendClaimsIn">Body</Item>
+                </Metadata>
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="mobile" PartnerClaimType="mobileno" />
+                </InputClaims>
+                <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+            </TechnicalProfile>
+            <TechnicalProfile Id="SelfAsserted-Social">
+                <ValidationTechnicalProfiles>
+                    <ValidationTechnicalProfile ReferenceId="AzureFunctions-CheckMobileWebHook" />
+                </ValidationTechnicalProfiles>
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+
+  </ClaimsProviders>
+
+    <!--UserJourneys>
+	
+	</UserJourneys-->
+
+</TrustFrameworkPolicy>
