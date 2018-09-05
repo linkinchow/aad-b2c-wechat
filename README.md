@@ -16,7 +16,7 @@ This demo shows how to use Azure AD B2C with WeChat as identity provider for sig
   4. MFA
 
 ## Project structure
-There are two separated folders for web app and mobile app.
+There are two separated folders for web app and mobile app (Android).
 
 - web
   - custom-policy: It contains base, extension and sign-up/in custom policies for WeChat identity in web app scenario. You can find the reference below.
