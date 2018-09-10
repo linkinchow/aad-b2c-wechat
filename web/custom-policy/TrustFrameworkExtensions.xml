@@ -41,7 +41,8 @@
                     <Item Key="SendClaimsIn">Body</Item>
                 </Metadata>
                 <InputClaims>
-                    <InputClaim ClaimTypeReferenceId="mobile" PartnerClaimType="mobileno" />
+                    <InputClaim ClaimTypeReferenceId="areacode" PartnerClaimType="acode" />
+                    <InputClaim ClaimTypeReferenceId="mpn" PartnerClaimType="mobileno" />
                 </InputClaims>
                 <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
             </TechnicalProfile>

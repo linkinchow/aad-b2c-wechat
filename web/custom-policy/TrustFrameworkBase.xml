@@ -196,6 +196,24 @@
         <UserInputType>TextBox</UserInputType>
       </ClaimType>
 
+      <ClaimType Id="areacode">
+        <DisplayName>区号</DisplayName>
+        <DataType>string</DataType>
+        <UserInputType>DropdownSingleSelect</UserInputType>
+        <Restriction>
+          <Enumeration Text="美国 (+1)" Value="+1" SelectByDefault="false" />
+          <Enumeration Text="德国 (+49)" Value="+49" SelectByDefault="false" />
+          <Enumeration Text="中国 (+86)" Value="+86" SelectByDefault="true" />
+        </Restriction>
+      </ClaimType>
+
+      <ClaimType Id="mpn">
+        <DisplayName>手机号码</DisplayName>
+        <DataType>string</DataType>
+        <UserHelpText>您的手机号码</UserHelpText>
+        <UserInputType>TextBox</UserInputType>
+      </ClaimType>
+
       <ClaimType Id="mobile">
         <DisplayName>手机号码</DisplayName>
         <DataType>string</DataType>
@@ -317,6 +335,19 @@
         <OutputClaims>
           <OutputClaim ClaimTypeReferenceId="userIdForMFA" TransformationClaimType="outputClaim" />
         </OutputClaims>
+      </ClaimsTransformation>
+
+      <ClaimsTransformation Id="CreateMobileFromAreaCodeAndMPN" TransformationMethod="FormatStringMultipleClaims">
+       <InputClaims>
+        <InputClaim ClaimTypeReferenceId="areacode" TransformationClaimType="inputClaim1" />
+        <InputClaim ClaimTypeReferenceId="mpn" TransformationClaimType="inputClaim2" />
+       </InputClaims>
+       <InputParameters>
+        <InputParameter Id="stringFormat" DataType="string" Value="{0}{1}" />
+       </InputParameters>
+       <OutputClaims>
+        <OutputClaim ClaimTypeReferenceId="mobile" TransformationClaimType="outputClaim" />
+       </OutputClaims>
       </ClaimsTransformation>
  
     </ClaimsTransformations>
@@ -525,6 +556,7 @@
           <IncludeInSso>false</IncludeInSso>
           <InputClaimsTransformations>
             <InputClaimsTransformation ReferenceId="CreateOtherMailsFromEmail" />
+            <InputClaimsTransformation ReferenceId="CreateMobileFromAreaCodeAndMPN" />
           </InputClaimsTransformations>
           <InputClaims>
             <InputClaim ClaimTypeReferenceId="AlternativeSecurityId" PartnerClaimType="alternativeSecurityId" Required="true" />
@@ -705,7 +737,8 @@
             <OutputClaim ClaimTypeReferenceId="displayName" />
             <!-- <OutputClaim ClaimTypeReferenceId="givenName" />
             <OutputClaim ClaimTypeReferenceId="surname" /> -->
-            <OutputClaim ClaimTypeReferenceId="mobile" />
+            <OutputClaim ClaimTypeReferenceId="areacode" />
+            <OutputClaim ClaimTypeReferenceId="mpn" />
 
             <!-- Add WeChat unionid, openid and appid -->
             <!-- <OutputClaim ClaimTypeReferenceId="extension_wuid"/>
@@ -714,6 +747,9 @@
             <!-- End of changes -->
 
           </OutputClaims>
+          <OutputClaimsTransformations>
+            <OutputClaimsTransformation ReferenceId="CreateMobileFromAreaCodeAndMPN" />
+          </OutputClaimsTransformations>
           <ValidationTechnicalProfiles>
             <ValidationTechnicalProfile ReferenceId="AAD-UserWriteUsingAlternativeSecurityId" />
           </ValidationTechnicalProfiles>
