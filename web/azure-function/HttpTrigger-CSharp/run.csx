@@ -15,7 +15,7 @@ public static async Task<object> Run(HttpRequestMessage request, TraceWriter log
     string requestContentAsString = await request.Content.ReadAsStringAsync();
     dynamic requestContentAsJObject = JsonConvert.DeserializeObject(requestContentAsString);
 
-    string mobileno = (string) requestContentAsJObject.mobileno;
+    string mobileno = (string) requestContentAsJObject.acode + (string) requestContentAsJObject.mobileno;
 
     string connString = "DefaultEndpointsProtocol=https;AccountName=jciworkshop;AccountKey=;EndpointSuffix=core.windows.net";
     string containerName = "mobile";
